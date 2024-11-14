@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            height: auto;
+            width: 90%;
+            max-width: 390px;
+            background-color: antiquewhite;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 2px 2px 15px black;
+            padding: 20px;
+        }
+
+        .main h1 {
+            background-color: rgb(255, 255, 255);
+            color: black;
+            text-align: center;
+            padding-top: 10px;
+            box-shadow: 10px 10px 15px black;
+            border-radius: 10px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .main p {
+            margin-top: 20px;
+            margin-left: 20px;
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        input {
+            background-color: rgb(255, 255, 255);
+            width: 100%;
+            max-width: 300px;
+            height: 50px;
+            font-size: 20px;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 10px black;
+            border: none;
+            padding: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        button {
+            height: 50px;
+            width: 100%;
+            max-width: 150px;
+            margin-top: 20px;
+            font-size: 27px;
+            border-radius: 6px;
+            border: none;
+            box-shadow: 2px 2px 15px black;
+            background-color: red;
+            font-style: italic;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: white;
+            color: red;
+        }
+
+        .header {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: black;
+        }
+
+        #years,
+        #months,
+        #days {
+            color: black;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 600px) {
+            .main {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .main h1 {
+                font-size: 22px;
+            }
+
+            .main p {
+                font-size: 16px;
+            }
+
+            input {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 24px;
+            }
+
+            #years,
+            #months,
+            #days {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <h1>Age Calculator</h1>
+        <p>Date of birth</p>
+        <input type="date" id="birthdate">
+        <div class="header">
+            <div id="result"></div>
+            <div id="years">Years: 00</div>
+            <div id="months">Months: 00</div>
+            <div id="days">Days: 00</div>
+        </div>
+        <button type="button" onclick="calculate()">Calculate</button>
+    </div>
+
+    <script>
+        function calculate() {
+            const birthdate = document.getElementById('birthdate');
+
+            if (birthdate.value == '') {
+                alert("Please enter a valid date");
+                return;
+            }
+
+            const birthDateObJ = new Date(birthdate.value);
+            const currentDate = new Date();
+
+            let years = currentDate.getFullYear() - birthDateObJ.getFullYear();
+            let months = currentDate.getMonth() - birthDateObJ.getMonth();
+            let days = currentDate.getDate() - birthDateObJ.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('years').textContent = 'Years: ' + years;
+            document.getElementById('months').textContent = 'Months: ' + months;
+            document.getElementById('days').textContent = 'Days: ' + days;
+        }
+    </script>
+
+</body>
+
+</html>
